@@ -1,0 +1,21 @@
+#!/bin/sh
+
+set -e
+
+ROOT=$(git rev-parse --show-toplevel)
+
+TEMP=$(mktemp)
+TEMP2=$(mktemp)
+TEMP3=$(mktemp)
+
+sort $ROOT/target > $TEMP
+uniq $TEMP > $TEMP2
+grep -v '^$' $TEMP2 > $TEMP3
+cat $TEMP3 > $ROOT/target
+
+sort $ROOT/target_priority > $TEMP
+uniq $TEMP > $TEMP2
+grep -v '^$' $TEMP2 > $TEMP3
+cat $TEMP3 > $ROOT/target_priority
+
+rm $TEMP $TEMP2 $TEMP3
