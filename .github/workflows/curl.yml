@@ -14,4 +14,4 @@ jobs:
           ROOT=$(git rev-parse --show-toplevel)
           cat $ROOT/target | node $ROOT/process.js > $ROOT/target_processed
       - name: Request archiving of target URLs
-        run: xargs -I {} curl -fIvsS {} > /dev/null < $(git rev-parse --show-toplevel)/target_processed
+        run: xargs -I {} curl -IvsS {} > /dev/null < $(git rev-parse --show-toplevel)/target_processed
