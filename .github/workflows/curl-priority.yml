@@ -7,7 +7,6 @@ on:
 jobs:
   curl:
     runs-on: ubuntu-latest
-    timeout-minutes: 1440
     steps:
       - uses: actions/checkout@v4
       - name: Percent-encode non-ASCII characters in target URLs
