@@ -15,4 +15,4 @@ jobs:
           ROOT=$(git rev-parse --show-toplevel)
           cat $ROOT/target_priority | node $ROOT/process.js > $ROOT/target_priority_processed
       - name: Request archiving of target URLs
-        run: xargs -I {} curl --retry 10 --retry-connrefused --retry-delay 60 -fIsS {} < $(git rev-parse --show-toplevel)/target_priority_processed
+        run: xargs -I {} curl --retry 10 --retry-connrefused --retry-delay 60 -fIvsS {} < $(git rev-parse --show-toplevel)/target_priority_processed
