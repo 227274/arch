@@ -7,15 +7,12 @@ on:
 jobs:
   curl:
     runs-on: ubuntu-latest
+    timeout-minutes: 1440
     steps:
       - uses: actions/checkout@v4
-      - name: Install packages
-        run: |
-          sudo apt update -y
-          sudo apt install httpie -y
       - name: Percent-encode non-ASCII characters in target URLs
         run: |
           ROOT=$(git rev-parse --show-toplevel)
           cat $ROOT/target | node $ROOT/process.js > $ROOT/target_processed
       - name: Request archiving of target URLs
-        run: xargs -I {} http --print Hh HEAD {} < $(git rev-parse --show-toplevel)/target_processed
+        run: xargs -I {} curl -fIvsS {} > /dev/null < $(git rev-parse --show-toplevel)/target_processed
