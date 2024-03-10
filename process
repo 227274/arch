@@ -1,0 +1,66 @@
+#!/usr/bin/env node
+
+const readline = require("readline");
+
+const rl = readline.createInterface({
+  input: process.stdin,
+});
+
+rl.on("line", (line) => {
+  for (let i of line.split("\n")) {
+    let uri = encodeURI(i)
+      .replaceAll(encodeURI("["), "[")
+      .replaceAll(encodeURI("]"), "]")
+      .replaceAll(encodeURI("{"), "{")
+      .replaceAll(encodeURI("}"), "}")
+      .replaceAll(
+        "SEARCH_TERMS",
+        `{${[
+          "筧礼",
+          "江口慶",
+          "大野遥斗",
+          "渡辺大馳",
+          "稲毛眞生",
+          "フクチッチ",
+          "勅使河原空",
+          "松尾そのま",
+          "天才てれびくん",
+        ]
+          .map((e) => encodeURI(e))
+          .join(",")}}`
+      )
+
+      .replaceAll(
+        "INSTAGRAM_SCREEN_NAMES",
+        `{${[
+          "arthur_0524_",
+          "daichi_watanabe0606",
+          "haruto_ohno_official",
+          "himawari_aozorae",
+          "i.am.mariaaaa",
+          "lilala_58",
+          "lina.amelie_pont_official",
+          "maeda_timon_d",
+          "mauna_inage_official",
+          "rei_kakehi",
+          "sonia_sonisoni",
+          "sonopy526",
+          "sora.chocolate",
+          "toa_konno1103",
+          "yuma_sakagami",
+        ].join(",")}}`
+      )
+      .replaceAll(
+        "TWITTER_SCREEN_NAMES",
+        `{${[
+          "CurryRice_41",
+          "i6Ma5WhgFUKgHFY",
+          "ToA_Konno1103",
+          "msonopy526",
+          "sakura_ikemura",
+          "sora_hello0526",
+        ].join(",")}}`
+      );
+    process.stdout.write(uri + "\n");
+  }
+});

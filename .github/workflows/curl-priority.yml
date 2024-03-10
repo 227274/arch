@@ -12,6 +12,6 @@ jobs:
       - name: Percent-encode non-ASCII characters in target URLs
         run: |
           ROOT=$(git rev-parse --show-toplevel)
-          cat $ROOT/target_priority | node $ROOT/process.js > $ROOT/target_priority_processed
+          cat $ROOT/target_priority | $ROOT/process > $ROOT/target_priority_processed
       - name: Request archiving of target URLs
         run: xargs -I {} curl --retry 1 --retry-delay 60 --retry-connrefused -IvsS {} > /dev/null < $(git rev-parse --show-toplevel)/target_priority_processed
