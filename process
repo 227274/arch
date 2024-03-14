@@ -57,7 +57,9 @@ rl.on("line", (line) => {
           "lina.amelie_pont_official",
           "maeda_timon_d",
           "mauna_inage_official",
+          "mio.mioim.oim",
           "rei_kakehi",
+          "saki_ohno_sign",
           "sonia_sonisoni",
           "sonopy526",
           "sora.chocolate",
@@ -72,6 +74,7 @@ rl.on("line", (line) => {
           "i6Ma5WhgFUKgHFY",
           "ToA_Konno1103",
           "msonopy526",
+          "saki_ohno",
           "sakura_ikemura",
           "sora_hello0526",
         ].join(",")}}`
