@@ -40,6 +40,7 @@ rl.on("line", (line) => {
           "廣末裕理",
           "ティモンディ",
           "ギュナイ滝美",
+          "中村蒔伝",
         ]
           .map((e) => encodeURI(e))
           .join(",")}}`
@@ -76,6 +77,7 @@ rl.on("line", (line) => {
           "msonopy526",
           "saki_ohno",
           "sakura_ikemura",
+          "siden925",
           "sora_hello0526",
         ].join(",")}}`
       );
