@@ -1,0 +1,26 @@
+name: "Scheduled cURLs #3"
+
+on:
+  schedule:
+    - cron: "0 12 * * *"
+
+jobs:
+  curl-3:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Update curl
+        run: |
+          sudo apt update
+          sudo apt install jq -y
+          sudo apt-get remove curl -y
+          sudo snap install curl
+
+      - name: Percent-encode non-ASCII characters in target URLs
+        run: ./generate
+
+      - name: Request archiving of target URLs
+        env:
+          IA_API_KEY: ${{ secrets.IA_API_KEY }}
+        run: ./archive < target-3.temp

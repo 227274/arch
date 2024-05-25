@@ -1,0 +1,13 @@
+#!/bin/bash
+
+shopt -s nullglob
+
+ROOT=$(git rev-parse --show-toplevel)
+cd $ROOT
+
+echo target-*.temp | xargs rm
+
+for i in target-*; do
+  cat $i | ./process > $i.temp
+  echo "File: $i, Lines: $(wc -l < "$i.temp" | sed 's/ //g')"
+done

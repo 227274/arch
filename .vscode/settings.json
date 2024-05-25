@@ -1,0 +1,6 @@
+{
+  "files.associations": {
+    "target-*": "plaintext"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+}

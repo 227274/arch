@@ -1,0 +1,187 @@
+#!/usr/bin/env node
+
+const readline = require("readline");
+
+const rl = readline.createInterface({
+  input: process.stdin,
+});
+
+const templates = {
+  GENERAL_SEARCH_TERMS: [
+    "筧礼",
+    "江口慶",
+    "大野遥斗",
+    "渡辺大馳",
+    "稲毛眞生",
+    "フクチッチ",
+    "勅使河原空",
+    "松尾そのま",
+    "天才てれびくん",
+    "天てれ",
+    "新井琉月",
+    "小久保向一朗",
+    "丸山煌翔",
+    "盛武美音",
+    "池村碧彩",
+    "池村咲良",
+    "香月萌衣",
+    "今野斗葵",
+    "大野冴姫",
+    "大野さき",
+    "金児莉良",
+    "シェパード龍アーサー",
+    "ポン璃菜アメリー",
+    "廣末裕理",
+    "ティモンディ",
+    "ギュナイ滝美",
+    "中村蒔伝",
+    "てれび戦士",
+    "超無敵クラス",
+    "クックルン",
+    "阿比留照太",
+    "坂上悠真",
+    "マウスソニア",
+    "大谷紅緒",
+    "布施麻理亜",
+    "ハートネットTV",
+    "柚木さんちの四兄弟",
+    "ヌワエメジョシュア",
+    "ハフォード健汰朗",
+    "寺尾佳之助",
+    "太田帯行",
+    "冨士原生",
+    "佐々木ゆら",
+    "志水透哉",
+    "名探偵コナン",
+  ],
+  WEB_SEARCH_TERMS: [
+    [
+      "筧礼",
+      "松尾そのま",
+      "稲毛眞生",
+      "大野遥斗",
+      "勅使河原空",
+      "江口慶",
+      "天才てれびくん",
+      "天てれ",
+      "てれび戦士",
+      "中村蒔伝",
+      "渡辺大馳",
+      "クックルン",
+      "金児莉良",
+    ].flatMap((searchQuery) => [
+      `site:instagram.com+${searchQuery}`,
+      `site:twitter.com+${searchQuery}`,
+      `site:x.com+${searchQuery}`,
+      `site:tiktok.com+${searchQuery}`,
+      `site:nhk.jp+"${searchQuery}"`,
+      `site:nhk.or.jp+"${searchQuery}"`,
+      `site:youtube.com+${searchQuery}`,
+    ]),
+    ["筧礼"].flatMap((searchQuery) => [`site:ohtapro.co.jp+${searchQuery}`]),
+    ["稲毛眞生", "大野遥斗"].flatMap((searchQuery) => [
+      `site:stardust.co.jp+${searchQuery}`,
+      `site:ebidan.com+${searchQuery}`,
+      `site:battleboys.jp+${searchQuery}`,
+    ]),
+    ["勅使河原空", "冨士原生"].flatMap((searchQuery) => [
+      `site:expg.jp+${searchQuery}`,
+    ]),
+    ["中村蒔伝"].flatMap((searchQuery) => [
+      `site:spacecraft.co.jp+${searchQuery}`,
+    ]),
+    ["江口慶"].flatMap((searchQuery) => [
+      `site:amuse.co.jp+${searchQuery}`,
+      `site:amuseplus.jp+${searchQuery}`,
+    ]),
+    ["渡辺大馳"].flatMap((searchQuery) => [
+      `site:smile-monkey.com+${searchQuery}`,
+    ]),
+    ["志水透哉"].flatMap((searchQuery) => [`site:ima-wo.com+${searchQuery}`]),
+  ].flat(),
+  INSTAGRAM_SCREEN_NAMES: [
+    "amuse_camp",
+    "aoi__ikemura",
+    "arthur_0524_",
+    "daichi_watanabe0606",
+    "haruto_ohno_official",
+    "himawari_aozorae",
+    "hufford_kentaro",
+    "i.am.mariaaaa",
+    "lara_gunay_",
+    "lilala_58",
+    "lina.amelie_pont_official",
+    "maeda_timon_d",
+    "mauna_inage_official",
+    "mei_kazuki",
+    "mio.mioim.oim",
+    "mutekiclass_ntv",
+    "rei_kakehi",
+    "saki_ohno_sign",
+    "sakura_ikemura",
+    "sonia_sonisoni",
+    "sonopy526",
+    "sora.chocolate",
+    "taian_official",
+    "toa_konno1103",
+    "yuma_sakagami",
+    "yura.63_",
+    "joshua_ggj",
+  ],
+  TWITTER_SCREEN_NAMES: [
+    "aoi_ikemura",
+    "CurryRice_41",
+    "i6Ma5WhgFUKgHFY",
+    "ToA_Konno1103",
+    "msonopy526",
+    "mutekiclass_ntv",
+    "numb306",
+    "saki_ohno",
+    "sakura_ikemura",
+    "siden925",
+    "sora_hello0526",
+    "lgbosmkaburu",
+    "GrapheneOS",
+    "shimizutoya75",
+  ],
+  TIKTOK_SCREEN_NAMES: ["expgjrlab", "ebidan_tokyo"],
+  NHK_EPISODE_LIST: [
+    (() => {
+      let urls = [];
+      for (let i = 0; i <= 600; i += 10) {
+        urls.push(
+          `https://api.nhk.jp/r7/l/tvepisode/ts/1YMMXM22K2.json?offset=${i}&size=10&status=broadcasted&order=desc`,
+          `https://api.nhk.jp/r7/l/tvepisode/ts/6MP3J96Z5Y.json?offset=${i}&size=10&status=broadcasted&order=desc`
+        );
+      }
+      return urls;
+    })(),
+  ].flat(),
+};
+
+rl.on("line", (line) => {
+  process.stdout.write(
+    line
+      .split("\n")
+      .flatMap((uri) => {
+        let results = [uri];
+
+        Object.keys(templates).forEach((key) => {
+          results = results.flatMap((result) => {
+            if (result.includes(key)) {
+              const replacedResults = templates[key].map((value) =>
+                result.replace(key, value)
+              );
+              return replacedResults;
+            } else {
+              return result;
+            }
+          });
+        });
+
+        return results;
+      })
+      .map(encodeURIComponent)
+      .join("\n") + "\n"
+  );
+});

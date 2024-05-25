@@ -1,0 +1,18 @@
+#!/bin/bash
+
+set -e
+
+ROOT=$(git rev-parse --show-toplevel)
+
+TEMP=$(mktemp)
+TEMP2=$(mktemp)
+TEMP3=$(mktemp)
+
+for i in {1..4}; do
+    sort $ROOT/target-$i > $TEMP
+    uniq $TEMP > $TEMP2
+    grep -v '^$' $TEMP2 > $TEMP3
+    cat $TEMP3 > $ROOT/target-$i
+done
+
+rm $TEMP $TEMP2 $TEMP3
