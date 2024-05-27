@@ -3,7 +3,7 @@
 ROOT=$(git rev-parse --show-toplevel)
 
 while IFS= read -r url; do
-    while ! curl \
+    curl \
         -H "Accept: application/json" \
         -H "Authorization: LOW $IA_API_KEY" \
         -d "capture_all=0" \
@@ -11,11 +11,10 @@ while IFS= read -r url; do
         -d "capture_screenshot=1" \
         -d "js_behavior_timeout=30" \
         -d "url=$url" \
-        --fail \
+        --retry 10 \
+        --retry-delay 10 \
+        --retry-all-errors \
         --no-progress-meter \
-        --retry-connrefused \
-        https://web.archive.org/save ; do
-        sleep 10
-    done
+        https://web.archive.org/save | jq
     sleep 10
 done < /dev/stdin
