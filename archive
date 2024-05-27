@@ -15,6 +15,7 @@ for url in $@ ; do
         --retry-delay 10 \
         --retry-all-errors \
         --no-progress-meter \
+        --verbose \
         https://web.archive.org/save | jq
     sleep 10
 done
