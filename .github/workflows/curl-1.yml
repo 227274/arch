@@ -23,4 +23,4 @@ jobs:
       - name: Request archiving of target URLs
         env:
           IA_API_KEY: ${{ secrets.IA_API_KEY }}
-        run: ./archive < target-1.temp
+        run: cat target-1.temp | xargs ./archive
