@@ -53,6 +53,7 @@ const templates = {
     "佐々木ゆら",
     "志水透哉",
     "名探偵コナン",
+    "柚木さんちの四兄弟。",
   ],
   WEB_SEARCH_TERMS: [
     [
@@ -69,6 +70,7 @@ const templates = {
       "渡辺大馳",
       "クックルン",
       "金児莉良",
+      "柚木さんちの四兄弟。",
     ].flatMap((searchQuery) => [
       `site:instagram.com+${searchQuery}`,
       `site:twitter.com+${searchQuery}`,
