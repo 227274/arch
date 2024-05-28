@@ -15,5 +15,5 @@ for url in "$@"; do
         --no-progress-meter \
         --verbose \
         https://web.archive.org/save | jq
-    sleep 10
+    sleep 30
 done
