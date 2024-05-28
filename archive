@@ -1,8 +1,6 @@
 #!/bin/bash
 
-ROOT=$(git rev-parse --show-toplevel)
-
-for url in $@ ; do
+for url in "$@"; do
     curl \
         -H "Accept: application/json" \
         -H "Authorization: LOW $IA_API_KEY" \
