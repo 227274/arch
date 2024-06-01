@@ -13,9 +13,7 @@ jobs:
       - name: Update curl
         run: |
           sudo apt update
-          sudo apt install jq -y
-          sudo apt-get remove curl -y
-          sudo snap install curl
+          sudo apt install -y jq
 
       - name: Percent-encode non-ASCII characters in target URLs
         run: ./generate
