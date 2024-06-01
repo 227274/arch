@@ -1,7 +1,7 @@
 #!/bin/bash
 
 for url in "$@"; do
-    ./bin/curl \
+    curl \
         -H "Accept: application/json" \
         -H "Authorization: LOW $IA_API_KEY" \
         -d "capture_all=0" \
