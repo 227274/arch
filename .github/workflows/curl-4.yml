@@ -10,12 +10,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Update curl
+      - name: Install dependencies
         run: |
-          sudo apt update
-          sudo apt install jq -y
-          sudo apt-get remove curl -y
-          sudo snap install curl
+          git clone https://github.com/227274/curl.git custom-curl --depth 1
+          cd custom-curl
+          autoreconf -fi
+          ./configure --with-openssl
+          make
+          sudo make install
+          sudo apt-get update
+          sudo apt-get reinstall -y \
+            jq \
+            libcurl4
 
       - name: Percent-encode non-ASCII characters in target URLs
         run: ./generate
