@@ -70,6 +70,7 @@ const templates = {
       "渡辺大馳",
       "クックルン",
       "金児莉良",
+      "柚木さんちの四兄弟",
       "柚木さんちの四兄弟。",
     ].flatMap((searchQuery) => [
       `site:instagram.com+${searchQuery}`,
