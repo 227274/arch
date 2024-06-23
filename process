@@ -163,7 +163,7 @@ const templates = {
   NHK_LIST_PAGES: [
     (() => {
       let pages = [];
-      for (let i = 2; i <= 30; i++) {
+      for (let i = 2; i <= 50; i++) {
         pages.push(i);
       }
       return pages;
