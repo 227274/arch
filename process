@@ -160,6 +160,15 @@ const templates = {
       return urls;
     })(),
   ].flat(),
+  NHK_LIST_PAGES: [
+    (() => {
+      let pages = [];
+      for (let i = 2; i <= 30; i++) {
+        pages.push(i);
+      }
+      return pages;
+    })(),
+  ].flat(),
 };
 
 rl.on("line", (line) => {
