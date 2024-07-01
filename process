@@ -97,10 +97,11 @@ const templates = {
       `site:amuse.co.jp+${searchQuery}`,
       `site:amuseplus.jp+${searchQuery}`,
     ]),
-    ["渡辺大馳"].flatMap((searchQuery) => [
+    ["新井琉月", "渡辺大馳"].flatMap((searchQuery) => [
       `site:smile-monkey.com+${searchQuery}`,
     ]),
     ["志水透哉"].flatMap((searchQuery) => [`site:ima-wo.com+${searchQuery}`]),
+    ["大野さき"].flatMap((searchQuery) => [`site:sign16.jp+${searchQuery}`]),
   ].flat(),
   INSTAGRAM_SCREEN_NAMES: [
     "amuse_camp",
